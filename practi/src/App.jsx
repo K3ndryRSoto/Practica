@@ -1,5 +1,5 @@
-import Swal from "sweetalert2/dist/sweetalert2.js";
 import { useState } from "react";
+import Swal from "sweetalert2";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 import { Tasks } from "./components/Box-task";
@@ -18,13 +18,15 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (info == "") {
+      return Swal.fire("The text box is empty");
+    }
 
     const newTask = {
       id: uuid,
       title: info,
       complete: false,
     };
-
     const pre = [...task];
     pre.unshift(newTask);
     setTask(pre);
