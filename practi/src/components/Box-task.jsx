@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaTrash, FaPen, FaCheck } from "react-icons/fa";
 
-export function Tasks({ item, update }) {
+export function Tasks({ item, update, deleteTask }) {
   const [isEdit, setIsEdit] = useState(false);
 
   const Form = () => {
@@ -40,7 +40,7 @@ export function Tasks({ item, update }) {
           }}
         />
 
-        <FaTrash />
+        <FaTrash onClick={(e) => deleteTask(item.id)} />
       </div>
     );
   };

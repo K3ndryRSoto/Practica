@@ -40,8 +40,7 @@ function App() {
   };
 
   const handleDelete = (id) => {
-    const pre = task.filter(item.id !== id);
-
+    const pre = task.filter((item) => item.id !== id);
     setTask(pre);
   };
 
