@@ -32,6 +32,19 @@ function App() {
     setTask(pre);
   };
 
+  const handleUpdate = (id, value) => {
+    const pre = [...task];
+    const item = pre.find((item) => item.id === id);
+    item.title = value;
+    setTask(pre);
+  };
+
+  const handleDelete = (id) => {
+    const pre = task.filter(item.id !== id);
+
+    setTask(pre);
+  };
+
   return (
     <>
       <form className="box">
@@ -47,7 +60,13 @@ function App() {
 
       <div>
         {task.map((item) => (
-          <Tasks key={item.id} item={item} />
+          <Tasks
+            key={item.id}
+            item={item}
+            task={task}
+            update={handleUpdate}
+            deleteTask={handleDelete}
+          />
         ))}
       </div>
     </>

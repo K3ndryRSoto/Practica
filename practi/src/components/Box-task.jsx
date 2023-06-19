@@ -1,19 +1,36 @@
 import { useState } from "react";
-import { FaTrash, FaPen } from "react-icons/fa";
+import { FaTrash, FaPen, FaCheck } from "react-icons/fa";
 
-export function Tasks({ item }) {
+export function Tasks({ item, update }) {
   const [isEdit, setIsEdit] = useState(false);
 
-  function Form() {
+  const Form = () => {
+    const [newValue, setNewValue] = useState(item.title);
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+    };
+
+    const handleChange = (e) => {
+      const value = e.target.value;
+      setNewValue(value);
+    };
+
+    const handleClicUpdate = () => {
+      update(item.id, newValue);
+      setIsEdit(false);
+    };
+
     return (
-      <form>
-        <input type="text" />
-        <button>Update</button>
+      <form className="box-form" onSubmit={handleSubmit}>
+        <input type="text" onChange={handleChange} value={newValue} />
+
+        <FaCheck className="button-update" onClick={handleClicUpdate} />
       </form>
     );
-  }
+  };
 
-  function TaskInfo() {
+  const TaskInfo = () => {
     return (
       <div className="box-task">
         {item.title}
@@ -26,7 +43,7 @@ export function Tasks({ item }) {
         <FaTrash />
       </div>
     );
-  }
+  };
 
   return <>{isEdit ? <Form /> : <TaskInfo />}</>;
 }
