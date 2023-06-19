@@ -18,7 +18,7 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (info == "") {
+    if (!info) {
       return Swal.fire("The text box is empty");
     }
 
@@ -30,6 +30,7 @@ function App() {
     const pre = [...task];
     pre.unshift(newTask);
     setTask(pre);
+    setInfo("");
   };
 
   const handleUpdate = (id, value) => {
@@ -40,8 +41,21 @@ function App() {
   };
 
   const handleDelete = (id) => {
-    const pre = task.filter((item) => item.id !== id);
-    setTask(pre);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const pre = task.filter((item) => item.id !== id);
+        setTask(pre);
+        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+      }
+    });
   };
 
   return (
@@ -50,6 +64,7 @@ function App() {
         <input
           name="title"
           type="text"
+          value={info}
           className="input-text"
           onChange={handleOnchange}
         />
@@ -69,7 +84,6 @@ function App() {
         ))}
       </div>
     </>
-    // hi
   );
 }
 export default App;
