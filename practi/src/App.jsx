@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { v4 as uuidv4 } from "uuid";
-import "./App.css";
+import "./styles/App.css";
 import { Tasks } from "./components/Box-task";
 
 function App() {
@@ -59,20 +59,23 @@ function App() {
   };
 
   return (
-    <>
+    <div className="box-major">
       <form className="box">
+        <label className="label">Task Of The Day?</label>
         <input
+          placeholder="Enter a Task"
           name="title"
           type="text"
           value={info}
           className="input-text"
           onChange={handleOnchange}
         />
-        <button onClick={handleSubmit}>SEND</button>
+        <button onClick={handleSubmit} className="button-send">
+          SEND
+        </button>
       </form>
-      <div className="container-task"></div>
 
-      <div>
+      <div className="container-task">
         {task.map((item) => (
           <Tasks
             key={item.id}
@@ -83,7 +86,7 @@ function App() {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 export default App;
