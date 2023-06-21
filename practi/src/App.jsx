@@ -25,7 +25,6 @@ function App() {
     const newTask = {
       id: uuid,
       title: info,
-      complete: false,
     };
     const pre = [...task];
     pre.unshift(newTask);
