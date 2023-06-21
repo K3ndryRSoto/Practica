@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useId } from "react";
+import "../styles/style-Box-Task.css";
 import { FaTrash, FaPen, FaCheck } from "react-icons/fa";
 
 export function Tasks({ item, update, deleteTask }) {
@@ -23,24 +24,58 @@ export function Tasks({ item, update, deleteTask }) {
 
     return (
       <form className="box-form" onSubmit={handleSubmit}>
-        <input type="text" onChange={handleChange} value={newValue} />
+        <input
+          type="text"
+          onChange={handleChange}
+          value={newValue}
+          className="input-update"
+        />
 
-        <FaCheck className="button-update" onClick={handleClicUpdate} />
+        <FaCheck className="icon update" onClick={handleClicUpdate} />
       </form>
     );
   };
 
   const TaskInfo = () => {
-    return (
-      <div className="box-task">
-        {item.title}
-        <FaPen
-          onClick={() => {
-            setIsEdit(true);
-          }}
-        />
+    const [isComplete, setIsComplete] = useState(false);
+    const idname = useId();
+    const handleComplete = () => {
+      const styleTask = document.getElementById(idname);
+      if (isComplete == false) {
+        setIsComplete(true);
 
-        <FaTrash onClick={(e) => deleteTask(item.id)} />
+        styleTask.style.backgroundColor = "#98FF95";
+        styleTask.style.textDecoration = "line-through";
+        styleTask.style.fontWeight = "bold";
+      } else if (isComplete == true) {
+        styleTask.style.backgroundColor = "#fff";
+        styleTask.style.textDecoration = "none";
+
+        setIsComplete(false);
+      }
+    };
+    return (
+      <div
+        id={idname}
+        className="box-task"
+        onClick={() => {
+          handleComplete();
+        }}
+      >
+        {item.title}
+        <div className="box-icon">
+          <FaPen
+            className="icon pen"
+            onClick={() => {
+              setIsEdit(true);
+            }}
+          />
+
+          <FaTrash
+            className="icon trash"
+            onClick={(e) => deleteTask(item.id)}
+          />
+        </div>
       </div>
     );
   };
