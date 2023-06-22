@@ -44,12 +44,14 @@ export function Tasks({ item, update, deleteTask }) {
       if (isComplete == false) {
         setIsComplete(true);
 
-        styleTask.style.backgroundColor = "#98FF95";
-        styleTask.style.textDecoration = "line-through";
+        styleTask.style.backgroundColor = "#FF6000";
+        styleTask.style.textDecoration = "line-through #454545 3px";
+        styleTask.style.color = "#fff";
         styleTask.style.fontWeight = "bold";
       } else if (isComplete == true) {
         styleTask.style.backgroundColor = "#fff";
         styleTask.style.textDecoration = "none";
+        styleTask.style.color = "#FF6000";
 
         setIsComplete(false);
       }
